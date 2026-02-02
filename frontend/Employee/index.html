@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee Directory</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 id="co">Communication Overview</h1>
+
+  <main class="container">
+  <section class="controls" aria-label="Employee controls">
+  <div style="
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    padding: 20px; 
+    background-color: #ffffff;
+    border-radius: 12px; 
+    
+  ">
+    <!-- Left Side: Search Input + Buttons -->
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <label for="employeeId" style="font-weight: 600; color: #444;">Employee ID</label>
+      <input 
+        id="employeeId" 
+        name="employeeId" 
+        type="text" 
+        placeholder="Enter Employee ID" 
+        style="
+          padding: 10px 14px; 
+          border: 2px solid #ddd; 
+          border-radius: 8px; 
+          font-size: 16px; 
+          min-width: 220px;
+        " 
+      />
+
+      <!-- Search Button - Green Color -->
+      <button 
+        id="searchBtn" 
+        style="
+          padding: 10px 24px; 
+          background: #28a745; 
+          color: white; 
+          border: none; 
+          border-radius: 8px; 
+          font-size: 16px; 
+          font-weight: 600; 
+          cursor: pointer; 
+          transition: all 0.3s;
+        "
+        onmouseover="this.style.background='#218838'; this.style.transform='translateY(-2px)'"
+        onmouseout="this.style.background='#28a745'; this.style.transform='translateY(0)'"
+      >
+         Search
+      </button>
+
+      <!-- Add Entry Button - Blue Color -->
+      <button 
+        id="addBtn" 
+        style="
+          padding: 10px 24px; 
+          background: #007bff; 
+          color: white; 
+          border: none; 
+          border-radius: 8px; 
+          font-size: 16px; 
+          font-weight: 600; 
+          cursor: pointer; 
+          transition: all 0.3s;
+        "
+        onmouseover="this.style.background='#0069d9'; this.style.transform='translateY(-2px)'"
+        onmouseout="this.style.background='#007bff'; this.style.transform='translateY(0)'"
+      >
+        Add Entry
+      </button>
+
+      <div id="searchMessage" class="message" aria-live="polite"></div>
+    </div>
+
+    <!-- Right Side: Logout Button - Red Color -->
+    <div>
+      <button 
+        onclick="logout()" 
+        style="
+          padding: 10px 24px; 
+          background: #dc3545; 
+          color: white; 
+          border: none; 
+          border-radius: 8px; 
+          font-size: 16px; 
+          font-weight: 600; 
+          cursor: pointer; 
+          transition: all 0.3s;
+        "
+        onmouseover="this.style.background='#c82333'; this.style.transform='translateY(-2px)'"
+        onmouseout="this.style.background='#dc3545'; this.style.transform='translateY(0)'"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</section>
+    <!-- Inline View Section -->
+    <section id="viewSection" class="view-section">
+      <div class="view-header">
+        <h2>View Employee Overview</h2>
+        <button id="viewCloseBtn" class="btn">Close</button>
+      </div>
+      <table class="view-table">
+        <tbody>
+          <tr><th>Employee ID</th><td id="v_employeeId"></td></tr>
+          <tr><th>Mobile</th><td id="v_mobile"></td></tr>
+          <tr><th>Company Email</th><td id="v_companyEmail"></td></tr>
+          <tr><th>Personal Email</th><td id="v_personalEmail"></td></tr>
+          <tr><th>Client ID</th><td id="v_clientId"></td></tr>
+          <tr><th>Emergency Contact</th><td id="v_emergencyContact"></td></tr>
+          <tr><th>VOP</th><td id="v_vop"></td></tr>
+          <tr><th>Details</th><td id="v_communicated"></td></tr>
+          <tr><th>Begin Date</th><td id="v_beginDate"></td></tr>
+          <tr><th>End Date</th><td id="v_endDate"></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Inline Form Section -->
+    <section id="formSection" class="form-section">
+      <div class="form-header">
+        <h2 id="formTitle">Add Employee Entry</h2>
+        <button id="formCloseBtn" class="btn">Cancel</button>
+      </div>
+
+      <form id="entryForm" autocomplete="off">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="e_employeeId">Employee ID *</label>
+            <input id="e_employeeId" name="employeeId" type="text" required />
+          </div>
+
+          <div class="form-group">
+            <label for="e_mobile">Mobile * (10 digits)</label>
+            <div class="phone-input">
+              <select id="e_mobileCode" name="mobileCode" required>
+                <option value="+1">+1 (US/CA)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+91" selected>+91 (IN)</option>
+                <option value="+61">+61 (AU)</option>
+                <option value="+86">+86 (CN)</option>
+                <option value="+81">+81 (JP)</option>
+                <option value="+49">+49 (DE)</option>
+                <option value="+33">+33 (FR)</option>
+                <option value="+971">+971 (AE)</option>
+                <option value="+65">+65 (SG)</option>
+              </select>
+              <input id="e_mobile" name="mobile" type="tel" 
+                     pattern="[0-9]{10}" 
+                     maxlength="10"
+                     placeholder="1234567890" 
+                     required />
+            </div>
+            <small class="field-hint">Enter 10 digit number only</small>
+          </div>
+
+          <div class="form-group">
+            <label for="e_companyEmail">Company Email *</label>
+            <input id="e_companyEmail" name="companyEmail" type="email" 
+                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                   placeholder="name@company.com"
+                   required />
+            <small class="field-hint">Must contain @ and domain (e.g., .com)</small>
+          </div>
+
+          <div class="form-group">
+            <label for="e_personalEmail">Personal Email</label>
+            <input id="e_personalEmail" name="personalEmail" type="email" 
+                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                   placeholder="name@email.com" />
+            <small class="field-hint">Must contain @ and domain (e.g., .com)</small>
+          </div>
+
+          <div class="form-group">
+            <label for="e_clientId">Client ID</label>
+            <input id="e_clientId" name="clientId" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label for="e_emergencyContact">Emergency Contact (10 digits)</label>
+            <div class="phone-input">
+              <select id="e_emergencyCode" name="emergencyCode">
+                <option value="+1">+1 (US/CA)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+91" selected>+91 (IN)</option>
+                <option value="+61">+61 (AU)</option>
+                <option value="+86">+86 (CN)</option>
+                <option value="+81">+81 (JP)</option>
+                <option value="+49">+49 (DE)</option>
+                <option value="+33">+33 (FR)</option>
+                <option value="+971">+971 (AE)</option>
+                <option value="+65">+65 (SG)</option>
+              </select>
+              <input id="e_emergencyContact" name="emergencyContact" type="tel" 
+                     pattern="[0-9]{10}"
+                     maxlength="10"
+                     placeholder="1234567890" />
+            </div>
+            <small class="field-hint">Enter 10 digit number only</small>
+          </div>
+
+          <div class="form-group">
+            <label for="e_vop">VOP</label>
+            <input id="e_vop" name="vop" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label for="e_beginDate">Begin Date</label>
+            <input id="e_beginDate" name="beginDate" type="date" />
+          </div>
+
+          <div class="form-group">
+            <label for="e_endDate">End Date</label>
+            <input id="e_endDate" name="endDate" type="date" />
+          </div>
+
+          <div class="form-group full">
+            <label for="e_communicated">Details — what was communicated</label>
+            <textarea id="e_communicated" name="communicated" rows="4"
+                      placeholder="Notes about what was communicated to/from the employee"></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Save</button>
+          <button type="button" class="btn" id="cancelBtn">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="table-wrap" aria-label="Employee data table">
+      <table id="employeeTable">
+        <thead>
+          <tr>
+            <th scope="col" class="left-col">Employee ID</th>
+            <th scope="col" class="left-col">Mobile</th>
+            <th scope="col" class="left-col">Company Email</th>
+            <th scope="col" class="left-col">Personal Email</th>
+            <th scope="col" class="left-col">Client ID</th>
+            <th scope="col" class="left-col">Emergency Contact</th>
+            <th scope="col" class="left-col">VOP</th>
+            <th scope="col" class="left-col">Details</th>
+            <th scope="col" class="date-col">Begin Date</th>
+            <th scope="col" class="date-col">End Date</th>
+            <th scope="col" class="date-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be inserted here -->
+        </tbody>
+      </table>
+      <div id="emptyMessage" class="muted">No employee entries yet. Click "Add Entry" to create one.</div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

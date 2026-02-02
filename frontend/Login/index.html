@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Communication Overview</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Communication Overview</h1>
+      <p>Employee Management System</p>
+    </div>
+
+    <div class="form-container">
+      <!-- Login Form -->
+      <form id="loginForm">
+        <h2>Login</h2>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+        </div>
+        <button type="submit">
+          <span id="loginText">Login</span>
+          <span id="loginLoader" style="display: none;">Loading...</span>
+        </button>
+        <div id="loginMessage"></div>
+        <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" style="display: none;">
+        <h2>Register</h2>
+        <div class="input-group">
+          <label for="regUsername">Username</label>
+          <input type="text" id="regUsername" required />
+        </div>
+        <div class="input-group">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" required />
+        </div>
+        <div class="input-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" required />
+        </div>
+        <div class="input-group">
+          <label for="regConfirmPassword">Confirm Password</label>
+          <input type="password" id="regConfirmPassword" required />
+        </div>
+        <button type="submit">
+          <span id="registerText">Register</span>
+          <span id="registerLoader" style="display: none;">Loading...</span>
+        </button>
+        <div id="registerMessage"></div>
+        <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+      </form>
+
+      <!-- OTP Section (Hidden by default) -->
+      <div id="otpSection" style="display: none; margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 10px; border: 1px solid #dee2e6; text-align: center;">
+        <h3 style="margin-top: 0; color: #2c3e50;">🔐 Enter 4-Digit OTP</h3>
+        <p style="color: #555; margin-bottom: 25px;">
+          Check your <strong>server console</strong> for the OTP<br>
+          <small>(Valid for 5 minutes only)</small>
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 25px;">
+          <input type="text" maxlength="1" class="otp-input" required 
+                 style="width: 60px; height: 60px; font-size: 28px; text-align: center; border: 2px solid #bdc3c7; border-radius: 10px;" />
+          <input type="text" maxlength="1" class="otp-input" required 
+                 style="width: 60px; height: 60px; font-size: 28px; text-align: center; border: 2px solid #bdc3c7; border-radius: 10px;" />
+          <input type="text" maxlength="1" class="otp-input" required 
+                 style="width: 60px; height: 60px; font-size: 28px; text-align: center; border: 2px solid #bdc3c7; border-radius: 10px;" />
+          <input type="text" maxlength="1" class="otp-input" required 
+                 style="width: 60px; height: 60px; font-size: 28px; text-align: center; border: 2px solid #bdc3c7; border-radius: 10px;" />
+        </div>
+
+        <button id="verifyOtpBtn" 
+                style="padding: 12px 35px; background: #27ae60; color: white; border: none; border-radius: 8px; font-size: 17px; cursor: pointer;">
+          Verify OTP
+        </button>
+
+        <div id="otpMessage" style="margin-top: 20px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
